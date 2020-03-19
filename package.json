@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "google-map-react": "^1.1.6",
+    "haversine": "^1.1.1",
     "leaflet": "^1.6.0",
     "pigeon-maps": "^0.15.0",
     "pigeon-marker": "^0.3.4",

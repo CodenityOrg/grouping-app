@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 
 import FacebookLogin from 'react-facebook-login';
 
@@ -15,7 +14,6 @@ export default () => {
 
     const componentClicked = () => {};
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
     return (
         <div>
             <Modal show={show} onHide={handleClose}>
