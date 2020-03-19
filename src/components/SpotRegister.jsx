@@ -11,7 +11,8 @@ export default (props) => {
 
     const [spot, setSpot] = useState({
         name: "",
-        quantity: 0
+        quantity: 0,
+
     });
 
     const setSpotNameHandler = e => {
@@ -29,7 +30,11 @@ export default (props) => {
     };
 
     const saveSpot = async () => {
-        await spotDS.save(spot);
+        await spotDS.save({
+            ...spot,
+            latitude: props.currentLoc.lat,
+            longitude: props.currentLoc.lng
+        });
         onClose();
     };
 

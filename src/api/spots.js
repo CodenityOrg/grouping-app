@@ -12,7 +12,8 @@ export default {
   save (payload) {
       return axios({
         url: `/spots`,
-        method: 'post'
+        method: 'post',
+        data: payload
       })
   },
   uploadBannerImage (payload = {}) {

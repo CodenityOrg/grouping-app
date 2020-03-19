@@ -20,7 +20,11 @@ class App extends Component {
       lat: 0,
       lng: 0,
       zoom: 18,
-      show: false
+      show: false,
+      currentLoc: {
+        lat: 0,
+        lng: 0
+      }
     }
   }
 
@@ -41,10 +45,14 @@ class App extends Component {
     this.getLocation();
   }
 
-  openSpotRegisterHandler = () => {
+  openSpotRegisterHandler = (e) => {
     this.setState({
-      show: true
-    })
+      show: true,
+      currentLoc: {
+        lat: e.latlng.lat,
+        lng: e.latlng.lng
+      }
+    });
   }
 
   closeSpotRegisterHandler = () => {
@@ -64,12 +72,13 @@ class App extends Component {
     return (
       <div>
         <Login />
-        <SpotRegister 
-          show={this.state.show} 
-          onClose={this.closeSpotRegisterHandler}  
+        <SpotRegister
+          show={this.state.show}
+          currentLoc={this.state.currentLoc}
+          onClose={this.closeSpotRegisterHandler}
         />
-        <Map 
-          center={position} 
+        <Map
+          center={position}
           onClick={this.openSpotRegisterHandler}
           zoom={this.state.zoom}
         >
