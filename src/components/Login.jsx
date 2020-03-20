@@ -1,15 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { useCookies } from 'react-cookie';
+import cookie from 'react-cookies'
 
 import FacebookLogin from 'react-facebook-login';
 
 import spotDS from '../api/spots';
 
 export default (props) => {
-    const [, setShow] = useState(false);
-    const [, setCookie] = useCookies(['token']);
-
     const responseFacebook = async (response) => {
         const user = await spotDS.login({
             email: response.email,
@@ -17,7 +14,8 @@ export default (props) => {
             accessToken: response.accessToken,
         });
 
-        setCookie('token', user.token);
+        cookie.save('token', user.token);
+        props.setToken(user.token);
         props.onClose();
     }
 

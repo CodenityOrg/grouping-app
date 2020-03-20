@@ -5,9 +5,9 @@ import Button from 'react-bootstrap/Button';
 
 import spotDS from '../api/spots';
 
-export default (props) => {
+export default props => {
 
-    const {onClose} = props;
+    const {onClose, getSpots, currentLoc} = props;
 
     const [spot, setSpot] = useState({
         name: "",
@@ -29,12 +29,21 @@ export default (props) => {
         })
     };
 
+    const clearFields = () => {
+        setSpot({
+            name: "",
+            quantity: ""
+        });
+    }
+
     const saveSpot = async () => {
         await spotDS.save({
             ...spot,
-            latitude: props.currentLoc.lat,
-            longitude: props.currentLoc.lng
+            latitude: currentLoc.lat,
+            longitude: currentLoc.lng
         });
+        getSpots();
+        clearFields();
         onClose();
     };
 

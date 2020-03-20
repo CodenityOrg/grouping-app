@@ -1,16 +1,19 @@
 import axios from 'axios'
+import cookie from 'react-cookies'
 
 const HOST = process.env.REACT_APP_API_URL || 'http://localhost:3001'
 
-
 const axiosDefaultInstance = axios.create({
   baseURL: HOST,
+
 });
 
 axiosDefaultInstance.interceptors.request.use(request => {
-  console.log('http request')
-  return request
-})
+  request.headers = {
+    authorization: cookie.load('token') || ''
+  };
+  return request;
+});
 
 axiosDefaultInstance.interceptors.response.use(response => response, error => {
   const errorResponse = error.response || error;
