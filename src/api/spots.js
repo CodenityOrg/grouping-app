@@ -9,6 +9,12 @@ export default {
         method: 'get'
       }).then(res => res.data);
   },
+  getOneByLocation(payload) {
+      return axios({
+        url: `/spots/byLocation?latitude=${payload.latitude}&longitude=${payload.longitude}`,
+        method: 'get',
+      }).then(res => res.data);
+  },
   save (payload) {
       return axios({
         url: `/spots`,

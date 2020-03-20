@@ -26,7 +26,8 @@ class App extends Component {
         lng: 0
       },
       spots: [],
-      token: cookie.load('token') || ''
+      token: cookie.load('token') || '',
+      spotName: ""
     }
   }
 
@@ -55,13 +56,16 @@ class App extends Component {
     this.getLocation();
   }
 
-  openSpotRegisterHandler = (e) => {
+  openSpotRegisterHandler = async (e) => {
+    const {lat, lng} = e.latlng;
+    const spot = await spotDS.getOneByLocation({latitude: lat, longitude: lng});
     this.setState({
       showSpotRegister: true,
       currentLoc: {
-        lat: e.latlng.lat,
-        lng: e.latlng.lng
-      }
+        lat,
+        lng
+      },
+      spotName: spot.name
     });
   }
 
@@ -84,8 +88,14 @@ class App extends Component {
     });
   }
 
+  spotNameHandler = (e) => {
+    this.setState({
+      spotName: e.target.value
+    });
+  }
+
   render() {
-    const {showLogin, spots, isLogged, showSpotRegister, currentLoc} = this.state;
+    const {showLogin, spots, isLogged, showSpotRegister, currentLoc, spotName} = this.state;
     const position = [this.state.lat, this.state.lng];
 
     return (
@@ -98,6 +108,8 @@ class App extends Component {
         <SpotRegister
           show={showSpotRegister}
           currentLoc={currentLoc}
+          spotName={spotName}
+          spotNameHandler={this.spotNameHandler}
           getSpots={this.getSpots}
           onClose={this.closeSpotRegisterHandler}
         />

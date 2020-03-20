@@ -7,22 +7,12 @@ import spotDS from '../api/spots';
 
 export default props => {
 
-    const {onClose, getSpots, currentLoc} = props;
-
+    const {onClose, getSpots, currentLoc, spotName, spotNameHandler} = props;
     const [spot, setSpot] = useState({
-        name: "",
         quantity: 0,
-
     });
 
-    const setSpotNameHandler = e => {
-        setSpot({
-            ...spot,
-            name: e.target.value
-        })
-    }
-
-    const setSpotQuantityHandler = e => {
+    const spotQuantityHandler = e => {
         setSpot({
             ...spot,
             quantity: e.target.value
@@ -50,13 +40,13 @@ export default props => {
     return (
         <Modal show={props.show} onHide={onClose}>
             <Modal.Body>
-                <Form.Group controlId="formBasicPassword">
+                <Form.Group>
                     <Form.Label>Nombre del local (Opcional)</Form.Label>
-                    <Form.Control type="text" onChange={setSpotNameHandler} value={spot.name} placeholder="Nombre" />
+                    <Form.Control type="text" onChange={spotNameHandler} value={spotName} placeholder="Nombre" />
                 </Form.Group>
-                <Form.Group controlId="formBasicPassword">
+                <Form.Group>
                     <Form.Label>Cuantas personas hay?</Form.Label>
-                    <Form.Control onChange={setSpotQuantityHandler} as="select" value={spot.quantity}>
+                    <Form.Control onChange={spotQuantityHandler} as="select" value={spot.quantity}>
                         <option>Choose...</option>
                         <option value="0">Vacio</option>
                         <option value="1">Casi lleno</option>
