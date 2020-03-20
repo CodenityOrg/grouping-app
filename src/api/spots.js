@@ -7,22 +7,20 @@ export default {
       return axios({
         url: `/spots`,
         method: 'get'
-      })
+      }).then(res => res.data);
   },
   save (payload) {
       return axios({
         url: `/spots`,
         method: 'post',
         data: payload
-      })
+      });
   },
-  uploadBannerImage (payload = {}) {
-    const data = payload.formData
+  login (payload) {
     return axios({
-      headers: { 'Content-Type': 'multipart/form-data' },
-      url: `${HOST}/banners/image`,
+      url: `/login`,
       method: 'post',
-      data
-    })
-  },
+      data: payload
+    }).then(res => res.data);
+  }
 }
