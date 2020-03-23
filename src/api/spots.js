@@ -1,7 +1,5 @@
 import axios from '../plugins/axios'
 
-const HOST = process.env.REACT_APP_API_URL || 'http://localhost:8000/api'
-
 export default {
   get (payload = {}) {
       return axios({

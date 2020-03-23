@@ -2,7 +2,7 @@ import axios from 'axios'
 import cookie from 'react-cookies'
 
 const HOST = process.env.REACT_APP_API_URL || 'http://localhost:3001'
-
+console.log(HOST)
 const axiosDefaultInstance = axios.create({
   baseURL: HOST,
 
