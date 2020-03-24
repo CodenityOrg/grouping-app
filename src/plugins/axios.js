@@ -1,11 +1,10 @@
 import axios from 'axios'
 import cookie from 'react-cookies'
 
-const HOST = process.env.REACT_APP_API_URL || 'http://localhost:3001'
-console.log(HOST)
+const HOST = (window._env_ && window._env_.REACT_APP_API_URL) ||  process.env.REACT_APP_API_URL || 'http://localhost:3001'
+
 const axiosDefaultInstance = axios.create({
   baseURL: HOST,
-
 });
 
 axiosDefaultInstance.interceptors.request.use(request => {
