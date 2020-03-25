@@ -1,5 +1,3 @@
-window.process = {}
-window.process.env = {
-  REACT_APP_API_URL: "http://localhost:8001/api",
+window._env_ = {
   REACT_APP_API_URL: "http://localhost:8001/api",
 }

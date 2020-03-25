@@ -29,6 +29,7 @@ export default props => {
     const saveSpot = async () => {
         await spotDS.save({
             ...spot,
+            name: spotName,
             latitude: currentLoc.lat,
             longitude: currentLoc.lng
         });
