@@ -1,22 +1,35 @@
-FROM mhart/alpine-node:11 AS builder
-
+# => Build container
+FROM node:alpine as builder
 WORKDIR /app
+COPY package.json .
+COPY yarn.lock .
+RUN yarn
 COPY . .
-RUN yarn install
+RUN yarn build
 
-RUN yarn run build
+# => Run container
+FROM nginx:1.15.2-alpine
 
-FROM mhart/alpine-node
-RUN yarn global add serve
+# Nginx config
+RUN rm -rf /etc/nginx/conf.d
+COPY conf /etc/nginx
 
-WORKDIR /app
+# Static build
+COPY --from=builder /app/build /usr/share/nginx/html/
 
-COPY --from=builder /app/build .
+# Default port exposure
+EXPOSE 80
+
+# Copy .env file and shell script to container
+WORKDIR /usr/share/nginx/html
 COPY ./env.sh .
 COPY .env .
 
+# Add bash
 RUN apk add --no-cache bash
 
+# Make our shell script executable
 RUN chmod +x env.sh
 
-CMD ["/bin/bash", "-c", "/app/env.sh && serve -p 80 -s ."]
+# Start Nginx server
+CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
